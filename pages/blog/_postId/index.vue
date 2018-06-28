@@ -1,0 +1,70 @@
+<template>
+  <section id="post-page" v-editable="blok">
+
+    <div id="post">
+      <div class="post-thumbnail" :style="{backgroundImage: 'url(' + image + ')'}"></div>
+      <section class="post-content">
+        <h1>{{title}}</h1>
+        <p>{{content}}</p>
+      </section>
+    </div>
+
+    <!--<h3>Post page placeholder</h3>-->
+    <!--<img :src="post.content.thumbnail" width="400px" />-->
+    <!--<pre>{{post.content.content}}</pre>-->
+    <!--<p>{{post}}</p>-->
+  </section>
+</template>
+<script>
+
+  //${context.params.blogId}/
+
+  export default {
+    asyncData(context){
+      return context.app.$storyapi.get(`cdn/stories/blog/${context.params.postId}`, {
+        version: context.isDev ? 'draft' : 'published'
+      }).then(res => {
+        return {
+          blok: res.data.story.content,
+          image: res.data.story.content.thumbnail,
+          title: res.data.story.content.title,
+          content: res.data.story.content.content,
+        };
+      }, err => {
+        //TODO handle post not found
+      })
+    },
+    validate({params}){
+      //TODO could add sanity check to route params
+      return true;
+    },
+    mounted(){
+      this.$storyblok.init();
+      this.$storyblok.on('change', ()=>{
+        location.reload(true)
+      })
+    }
+  }
+
+</script>
+
+<style scoped>
+
+  .post-thumbnail{
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .post-content{
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+  }
+
+  .post-content p{
+    white-space: pre-line;
+  }
+
+</style>
