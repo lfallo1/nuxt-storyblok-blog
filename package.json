@@ -2,7 +2,7 @@
   "name": "storyblok-blog",
   "version": "1.0.0",
   "description": "Awesome blog",
-  "author": "Maximilian Schwarzmüller",
+  "author": "Lance Fallon",
   "private": true,
   "scripts": {
     "dev": "nuxt",
