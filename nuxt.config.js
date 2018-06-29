@@ -2,7 +2,6 @@ const pkg = require('./package')
 const axios = require('axios')
 
 const STORYBLOK_TOKEN = process.env.NODE_ENV == 'production' ? 'zPLZ7clr4u2dlhNwgCi4Pgtt' : 'HP0S4MrLY1nyw3tSXWcj3Att';
-const STORYBLOK_VERSION = process.env.NODE_ENV == 'production' ? 'published' : 'draft';
 
 module.exports = {
   mode: 'universal',
@@ -44,7 +43,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
+    // storyblok-nuxt plugin
     ['storyblok-nuxt', {accessToken: STORYBLOK_TOKEN, cacheProvider: 'memory'}]
   ],
 
